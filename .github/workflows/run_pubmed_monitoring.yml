@@ -23,9 +23,11 @@ jobs:
       # 必要なパッケージをインストール
       - name: Install dependencies
         run: |
-          pip install nbconvert requests openpyxl
+          pip install nbconvert requests openpyxl ipykernel
+          python -m ipykernel install --user --name=python
+
 
       # Jupyter Notebookの実行
       - name: Execute Notebook
         run: |
-          jupyter nbconvert --to notebook --execute PubMed_Monitoring.ipynb --ExecutePreprocessor.kernel_name=python3
+          jupyter nbconvert --to notebook --execute PubMed_Monitoring.ipynb --ExecutePreprocessor.kernel_name=python
