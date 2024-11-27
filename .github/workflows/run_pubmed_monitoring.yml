@@ -20,8 +20,8 @@ jobs:
 
     - name: Install dependencies
       run: |
-        pip install nbconvert requests openpyxl
+        pip install nbconvert requests openpyxl smtplib
 
     - name: Execute notebook
       run: |
-        jupyter nbconvert --to notebook --execute PubMed_Monitoring.ipynb
+        jupyter nbconvert --to notebook --execute PubMed_Monitoring.ipynb --ExecutePreprocessor.kernel_name=python
