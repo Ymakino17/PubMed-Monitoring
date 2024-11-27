@@ -3,7 +3,7 @@ name: Run PubMed Monitoring
 on:
   schedule:
     - cron: "0 13 * * *"  # 毎日UTCの13時に実行 (CSTの7時)
-  workflow_dispatch:
+  workflow_dispatch:  # 手動実行も可能
 
 jobs:
   run_script:
@@ -19,7 +19,7 @@ jobs:
           python-version: "3.8"
 
       - name: Install dependencies
-        run: pip install openpyxl requests smtplib
+        run: pip install openpyxl requests
 
       - name: Execute PubMed Monitoring
         run: python pubmed_monitoring.py
