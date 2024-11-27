@@ -1,25 +1,27 @@
-name: Run PubMed Monitoring
+name: PubMed Monitoring
 
 on:
   schedule:
-    - cron: "0 13 * * *"  # 毎日UTCの13時 (CSTの7時)
-  workflow_dispatch:
+    - cron: "0 13 * * *"  # 毎日 UTC 13:00 (アメリカ中央時間 7:00)
+  workflow_dispatch:  # 手動実行用
 
 jobs:
-  run_script:
+  run_notebook:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+    - name: Checkout repository
+      uses: actions/checkout@v2
 
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: "3.8"
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: "3.8"
 
-      - name: Install dependencies
-        run: pip install openpyxl requests
+    - name: Install dependencies
+      run: |
+        pip install nbconvert requests openpyxl
 
-      - name: Execute script
-        run: python PubMed_Monitoring.ipynb --keywords "RNA splicing, Glioma"
+    - name: Execute notebook
+      run: |
+        jupyter nbconvert --to notebook --execute PubMed_Monitoring.ipynb
