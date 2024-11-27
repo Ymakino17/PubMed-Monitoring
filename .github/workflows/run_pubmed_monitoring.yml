@@ -17,6 +17,11 @@ jobs:
       uses: actions/setup-python@v4
       with:
         python-version: "3.8"
+    
+    - name: Install dependencies
+      run: |
+        pip install nbconvert==7.6.0
+
 
     - name: Install dependencies
       run: |
@@ -26,6 +31,10 @@ jobs:
       run: |
         pip install nbconvert requests openpyxl ipykernel
 
+    - name: Debug Kernel
+      run: |
+        python -m ipykernel install --user
+        jupyter kernelspec list
 
     - name: Execute notebook
       run: |
