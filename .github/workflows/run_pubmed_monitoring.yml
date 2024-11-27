@@ -1,33 +1,32 @@
 name: PubMed Monitoring
 
 on:
-  workflow_dispatch:  # 手動実行を有効化
-  schedule:           # 定期実行を設定
-    - cron: '0 13 * * *'  # 毎日アメリカ中央時間の午前7時（UTCで午後1時）
+  schedule:
+    - cron: '0 13 * * *' # 毎日アメリカ中央時間の7時
+  workflow_dispatch:
 
 jobs:
   run-notebook:
     runs-on: ubuntu-latest
 
     steps:
-      # リポジトリのチェックアウト
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # Python環境のセットアップ
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
           python-version: 3.8
 
-      # 必要なパッケージをインストール
       - name: Install dependencies
         run: |
-          pip install nbconvert requests openpyxl ipykernel
-          python -m ipykernel install --user --name=python
+          pip install nbconvert requests openpyxl
 
-
-      # Jupyter Notebookの実行
       - name: Execute Notebook
+        env: # 環境変数を設定
+          PUBMED_API_KEY: ${{ secrets.PUBMED_API_KEY }}
+          SENDER_EMAIL: ${{ secrets.SENDER_EMAIL }}
+          SENDER_PASSWORD: ${{ secrets.SENDER_PASSWORD }}
+          RECIPIENT: ${{ secrets.RECIPIENT }}
         run: |
           jupyter nbconvert --to notebook --execute PubMed_Monitoring.ipynb --ExecutePreprocessor.kernel_name=python
