@@ -24,4 +24,4 @@ jobs:
 
     - name: Execute notebook
       run: |
-        jupyter nbconvert --to notebook --execute PubMed_Monitoring.ipynb --ExecutePreprocessor.kernel_name=python
+        jupyter nbconvert --to notebook --execute PubMed_Monitoring.ipynb --ExecutePreprocessor.kernel_name=python3
