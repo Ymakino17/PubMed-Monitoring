@@ -1,11 +1,9 @@
 name: PubMed Monitoring
 
 on:
-  schedule:
-    # 毎日アメリカ中央時間の午前7時に実行
-    - cron: '0 13 * * *'
-on:
   workflow_dispatch:  # 手動実行を有効化
+  schedule:           # 定期実行を設定
+    - cron: '0 13 * * *'  # 毎日アメリカ中央時間の午前7時（UTCで午後1時）
 
 jobs:
   run-notebook:
