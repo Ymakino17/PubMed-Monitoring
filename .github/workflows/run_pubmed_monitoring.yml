@@ -20,7 +20,7 @@ jobs:
 
     - name: Install dependencies
       run: |
-        pip install nbconvert requests openpyxl smtplib
+        pip install nbconvert requests openpyxl
 
     - name: Execute notebook
       run: |
