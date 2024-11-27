@@ -21,6 +21,11 @@ jobs:
     - name: Install dependencies
       run: |
         pip install nbconvert requests openpyxl
+  
+    - name: Install dependencies
+      run: |
+        pip install nbconvert requests openpyxl ipykernel
+
 
     - name: Execute notebook
       run: |
