@@ -3,26 +3,23 @@ name: Run PubMed Monitoring
 on:
   schedule:
     - cron: "0 13 * * *"  # 毎日UTCの13時に実行 (CSTの7時)
-  workflow_dispatch:  # 手動実行も可能
+  workflow_dispatch:
 
 jobs:
-  run_notebook:
+  run_script:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Set up Python environment
+      - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: '3.8'
+          python-version: "3.8"
 
       - name: Install dependencies
-        run: |
-          pip install --upgrade pip
-          pip install nbconvert notebook
+        run: pip install openpyxl requests smtplib
 
-      - name: Run PubMed Monitoring Notebook
-        run: |
-          jupyter nbconvert --to notebook --execute PubMed_Monitoring.ipynb
+      - name: Execute PubMed Monitoring
+        run: python pubmed_monitoring.py
