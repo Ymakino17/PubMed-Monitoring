@@ -1,4 +1,4 @@
-name: Run PubMed Monitoring
+name: Run PubMed Monitoring Notebook
 
 on:
   schedule:
@@ -6,7 +6,7 @@ on:
   workflow_dispatch:  # 手動実行も可能
 
 jobs:
-  run_script:
+  run_notebook:
     runs-on: ubuntu-latest
 
     steps:
@@ -19,7 +19,9 @@ jobs:
           python-version: "3.8"
 
       - name: Install dependencies
-        run: pip install openpyxl requests
+        run: |
+          pip install nbconvert notebook requests openpyxl
 
-      - name: Execute PubMed Monitoring
-        run: python pubmed_monitoring.py
+      - name: Execute Jupyter Notebook
+        run: |
+          jupyter nbconvert --to notebook --execute PubMed_Monitoring.ipynb --output PubMed_Monitoring_Output.ipynb
