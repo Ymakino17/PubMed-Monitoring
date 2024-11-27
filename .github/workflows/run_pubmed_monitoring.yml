@@ -20,13 +20,14 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install nbconvert requests openpyxl
+          pip install nbconvert requests openpyxl ipykernel
 
       - name: Execute Notebook
-        env: # 環境変数を設定
+        env:
           PUBMED_API_KEY: ${{ secrets.PUBMED_API_KEY }}
           SENDER_EMAIL: ${{ secrets.SENDER_EMAIL }}
           SENDER_PASSWORD: ${{ secrets.SENDER_PASSWORD }}
           RECIPIENT: ${{ secrets.RECIPIENT }}
         run: |
-          jupyter nbconvert --to notebook --execute PubMed_Monitoring.ipynb --ExecutePreprocessor.kernel_name=python
+          python -m ipykernel install --user --name=python3
+          jupyter nbconvert --to notebook --execute PubMed_Monitoring.ipynb --ExecutePreprocessor.kernel_name=python3
