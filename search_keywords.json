@@ -1,5 +1,5 @@
 [
-  "'RNA splicing' and DMG or DIPG or K27",
+  "RNA splicing AND (DMG OR DIPG OR K27)",
   "NET10",
   "R-loop"  
 ]
